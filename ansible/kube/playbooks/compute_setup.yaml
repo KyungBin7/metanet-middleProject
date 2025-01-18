@@ -1,0 +1,6 @@
+---
+- name: Setup Kubernetes and CRI-O on all nodes
+  hosts: all
+  become: true
+  roles:
+    - common

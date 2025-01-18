@@ -1,0 +1,16 @@
+all:
+  children:
+    controller:
+      hosts:
+        controller1:
+          ansible_host: 192.168.10.10
+    compute:
+      hosts:
+        compute1:
+          ansible_host: 192.168.10.20
+        compute2:
+          ansible_host: 192.168.10.30
+    infra:
+      hosts:
+        infra:
+          ansible_host: 192.168.10.100
