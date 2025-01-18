@@ -9,11 +9,11 @@
 clouds:
   openstack:
     auth:
-      auth_url: https://vlab.dustbox.kr:5000
-      username: "user3"
-      project_id: 3937c9878ce444dfba2a26f3c2752dc6
-      project_name: "user3"
-      user_domain_name: "student"
+      auth_url: http://172.16.0.10:5000
+      username: "admin"
+      project_id: cff461bdd64f4415913d770b339aa6d4
+      project_name: "admin"
+      user_domain_name: "Default"
     region_name: "RegionOne"
     interface: "public"
     identity_api_version: 3

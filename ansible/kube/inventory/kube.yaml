@@ -3,7 +3,7 @@ all:
     controller:
       hosts:
         controller1:
-          ansible_host: 192.168.10.10
+          ansible_host: 192.168.4.192
     compute:
       hosts:
         compute1:
