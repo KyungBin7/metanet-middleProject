@@ -1,5 +1,6 @@
 ---
-- name: Kubeadm 초기화 플레이북
-  hosts: controller
+- name: Setup Kubernetes and CRI-O on all nodes
+  hosts: all
+  become: true
   roles:
-    - kubeadm_init
+    - common
