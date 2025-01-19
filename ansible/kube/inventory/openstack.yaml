@@ -1,8 +1,19 @@
-plugin: openstack
-clouds:
-  - openstack
-keyed_groups:
-  - key: metadata.group
-    prefix: openstack_
-compose:
-  ansible_host: public_v4  # VM의 공용 IP를 Ansible이 사용할 수 있도록 매핑
+plugin: openstack.cloud.openstack
+auth:
+  auth_url: http://vlab.dustbox.kr:5000/v3
+  username: "jkb"
+  password: "rkfaorltkf"
+  project_name: "jkb"
+  project_domain_name: "student"
+  user_domain_name: "student"
+keypairs:
+  private_key_file: ~/Downloads/jkb.pem
+region_name: RegionOne
+interface: public
+api_version: '3'
+all:
+  children:
+    k8s-controller:
+      hosts:
+        root:
+          ansible_host: 10.0.0.35
