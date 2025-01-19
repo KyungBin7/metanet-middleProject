@@ -1,8 +1,8 @@
 plugin: openstack
-auth_url: http://172.16.0.10:5000/v3
-username: admin
-password: abc123
-project_name: admin
-region_name: RegionOne
-identity_api_version: 3
-validate_certs: false
+clouds:
+  - openstack
+keyed_groups:
+  - key: metadata.group
+    prefix: openstack_
+compose:
+  ansible_host: public_v4  # VM의 공용 IP를 Ansible이 사용할 수 있도록 매핑

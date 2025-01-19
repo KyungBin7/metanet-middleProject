@@ -1,0 +1,31 @@
+---
+# tasks/main.yml
+- name: Copy kubeadm config file
+  copy:
+    src: kubeadm-config.yaml
+    dest: /root/kubeadm-config.yaml
+
+- name: Initialize Kubernetes on controller node
+  shell: kubeadm init --config=/root/kubeadm-config.yaml
+  args:
+    creates: /etc/kubernetes/admin.conf
+
+- name: Create the kube-flannel namespace
+  ansible.builtin.command:
+    cmd: kubectl create ns kube-flannel
+  register: create_namespace
+  changed_when: "'created' in create_namespace.stdout"
+
+- name: Set pod security enforcement to privileged for kube-flannel namespace
+  ansible.builtin.command:
+    cmd: kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
+
+- name: Add the Flannel Helm repository
+  ansible.builtin.command:
+    cmd: helm repo add flannel https://flannel-io.github.io/flannel/
+  register: add_helm_repo
+  changed_when: "'already exists' not in add_helm_repo.stdout"
+
+- name: Install Flannel using Helm
+  ansible.builtin.command:
+    cmd: helm install flannel --set podCidr="192.168.0.0/16" --namespace kube-flannel flannel/flannel
