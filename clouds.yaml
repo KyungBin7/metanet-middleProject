@@ -1,0 +1,13 @@
+clouds:
+  openstack:
+    auth:
+      auth_url: https://keystone.dustbox.kr:5000/v3
+      username: "jkb"
+      password: "rkfaorltkf"
+      project_name: "jkb"
+      project_domain_name: "student"
+      user_domain_name: "student"
+    region_name: "RegionOne"
+    interface: "public"
+    identity_api_version: 3
+    insecure: true
