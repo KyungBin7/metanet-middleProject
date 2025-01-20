@@ -3,6 +3,7 @@
   hosts: all
   become: true
   roles:
+    - set_hostname_controller
     - common
     - install_helm
     - controller

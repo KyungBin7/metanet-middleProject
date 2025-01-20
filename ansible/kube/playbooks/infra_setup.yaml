@@ -3,6 +3,7 @@
   hosts: infra
   become: yes
   roles:
+    - set_hostname_infra
     - common
     - nfs_setup
     - install_helm

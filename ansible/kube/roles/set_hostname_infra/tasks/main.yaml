@@ -1,0 +1,3 @@
+- name: Set hostname to storage.example.com
+  ansible.builtin.hostname:
+    name: storage.example.com
