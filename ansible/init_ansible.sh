@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 프로젝트 디렉토리 생성
-PROJECT_NAME=${ansible-kube}
+PROJECT_NAME=${ansible-test}
 mkdir -p $PROJECT_NAME/{inventory,roles,playbooks}
 mkdir -p $PROJECT_NAME/roles/common/{tasks,handlers,templates,files}
 
