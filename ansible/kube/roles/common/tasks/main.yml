@@ -1,4 +1,11 @@
-# Install Kubernetes and CRI-O
+---
+- name: Update all packages using dnf
+  dnf:
+    name: "*"
+    state: latest
+  become: true
+  register: result
+
 - name: Add Kubernetes YUM repository
   copy:
     dest: /etc/yum.repos.d/kubernetes.repo
