@@ -1,0 +1,2 @@
+---
+infra_ip: "{{ hostvars['k8s-infra']['hosts']['root']['ansible_host'] }}"

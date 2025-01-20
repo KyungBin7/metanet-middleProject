@@ -5,6 +5,7 @@
   roles:
     - set_hostname_infra
     - common
+    - infra
     - nfs_setup
     - install_helm
     - pvc_setup

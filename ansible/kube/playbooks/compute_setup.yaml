@@ -1,8 +1,8 @@
 ---
-- name: Setup Kubernetes and CRI-O on all nodes
+- name: Setup Kubernetes and join on compute1
   hosts: all
   become: true
   roles:
-    - set_hostname_controller
+    - set_hostname_compute1
     - common
     - join
