@@ -16,8 +16,8 @@ all:
     k8s-controller:
       hosts:
         root:
-          ansible_host: 10.0.0.35
+          ansible_host: 10.0.0.166
     k8s-infra:
       hosts:
         root:
-          ansible_host: 10.0.0.97
+          ansible_host: 10.0.0.136
