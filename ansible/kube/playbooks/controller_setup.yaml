@@ -4,6 +4,7 @@
   become: true
   roles:
     - set_hostname_controller
+    - set_ip_controller
     - common
     - install_helm
     - controller

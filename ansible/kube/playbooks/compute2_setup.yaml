@@ -4,5 +4,6 @@
   become: true
   roles:
     - set_hostname_compute2
+    - set_ip_compute2
     - common
     - join

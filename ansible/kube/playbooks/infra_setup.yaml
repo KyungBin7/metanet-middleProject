@@ -4,6 +4,7 @@
   become: yes
   roles:
     - set_hostname_infra
+    - set_ip_infra
     - common
     - infra
     - nfs_setup
