@@ -55,6 +55,8 @@
 - name: Set SELinux to permissive
   selinux:
     state: permissive
+    policy: targeted 
+    configfile: /etc/selinux/config
 
 - name: Disable Swap
   shell: |
