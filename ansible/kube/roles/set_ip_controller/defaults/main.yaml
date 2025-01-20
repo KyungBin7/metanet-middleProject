@@ -1,17 +1,4 @@
-# roles/configure_network/tasks/main.yml
----
-- name: Configure IPv4 method for the network connection
-  ansible.builtin.command:
-    cmd: "nmcli connection modify '{{ network_connection_name }}' ipv4.method '{{ ipv4_method }}'"
-
-- name: Configure IPv4 address for the network connection
-  ansible.builtin.command:
-    cmd: "nmcli connection modify '{{ network_connection_name }}' ipv4.addresses '{{ ipv4_address }}'"
-
-- name: Bring down the network connection
-  ansible.builtin.command:
-    cmd: "nmcli connection down '{{ network_connection_name }}'"
-
-- name: Bring up the network connection
-  ansible.builtin.command:
-    cmd: "nmcli connection up '{{ network_connection_name }}'"
+# roles/configure_network/defaults/main.yml
+network_connection_name: "Wired connection 1"
+ipv4_method: "manual"
+ipv4_address: "192.168.10.10/16"
