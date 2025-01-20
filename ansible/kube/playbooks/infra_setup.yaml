@@ -1,6 +1,6 @@
 ---
 - name: Set up Infra nodes
-  hosts: infra
+  hosts: all
   become: yes
   roles:
     - set_hostname_infra
