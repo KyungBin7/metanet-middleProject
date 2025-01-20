@@ -17,18 +17,18 @@
 
 - name: Export KUBECONFIG environment variable
   lineinfile:
-    path: "/home/{{ ansible_user }}/.bashrc"
+    path: "/{{ ansible_user }}/.bashrc"
     line: "export KUBECONFIG={{ kube_config_dir }}/config"
     state: present
-    
+
 - name: Ensure kubeconfig environment variable is set for the current user
   lineinfile:
     path: ~/.bashrc
     regexp: '^export KUBECONFIG='
-    line: 'export KUBECONFIG=/etc/kubernetes/admin.conf'
+    line: 'export KUBECONFIG=/root/.kube/config'
     state: present
 
 - name: Source ~/.bashrc to apply changes
-  shell: source ~/.bashrc
+  shell: source /root/.bashrc
   args:
     executable: /bin/bash

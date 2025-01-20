@@ -1,2 +1,2 @@
 ---
-kube_config_dir: "/{{ ansible_user }}/.kube"
+kube_config_dir: "/root/.kube"
