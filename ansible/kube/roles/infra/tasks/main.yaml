@@ -1,25 +1,11 @@
 ---
-- name: Ensure .kube directory exists
-  file:
-    path: "{{ kube_config_dir }}"
-    state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: '0700'
 
-- name: Copy admin.conf to .kube/config
-  copy:
-    src: "/root/admin.conf"
-    dest: "{{ kube_config_dir }}/config"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: '0600'
 
 - name: Ensure kubeconfig environment variable is set for the current user
   lineinfile:
     path: ~/.bashrc
     regexp: '^export KUBECONFIG='
-    line: 'export KUBECONFIG=/root/.kube/config'
+    line: 'export KUBECONFIG=/root/admin.conf'
     state: present
 
 - name: Source ~/.bashrc to apply changes
