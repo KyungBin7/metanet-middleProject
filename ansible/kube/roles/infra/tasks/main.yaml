@@ -15,12 +15,6 @@
     group: "{{ ansible_user }}"
     mode: '0600'
 
-- name: Export KUBECONFIG environment variable
-  lineinfile:
-    path: "/{{ ansible_user }}/.bashrc"
-    line: "export KUBECONFIG={{ kube_config_dir }}/config"
-    state: present
-
 - name: Ensure kubeconfig environment variable is set for the current user
   lineinfile:
     path: ~/.bashrc
