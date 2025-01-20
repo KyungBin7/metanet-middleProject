@@ -10,6 +10,18 @@
   args:
     creates: /etc/kubernetes/admin.conf
 
+- name: Ensure kubeconfig environment variable is set for the current user
+  lineinfile:
+    path: ~/.bashrc
+    regexp: '^export KUBECONFIG='
+    line: 'export KUBECONFIG=/etc/kubernetes/admin.conf'
+    state: present
+
+- name: Source ~/.bashrc to apply changes
+  shell: source ~/.bashrc
+  args:
+    executable: /bin/bash
+
 - name: Create the kube-flannel namespace
   ansible.builtin.command:
     cmd: kubectl create ns kube-flannel
