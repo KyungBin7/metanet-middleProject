@@ -1,4 +1,15 @@
 ---
+- name: Set hostname to node1.example.com
+  ansible.builtin.hostname:
+    name: node1.example.com
+
+- name: Update /etc/hosts for new hostname
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1'
+    line: '127.0.1.1   node1.example.com'
+    state: present
+    
 # Install Kubernetes and CRI-O
 - name: Add Kubernetes YUM repository
   copy:
