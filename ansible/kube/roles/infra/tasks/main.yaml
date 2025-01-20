@@ -1,6 +1,4 @@
 ---
-
-
 - name: Ensure kubeconfig environment variable is set for the current user
   lineinfile:
     path: ~/.bashrc

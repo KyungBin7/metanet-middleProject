@@ -44,7 +44,7 @@
     state: started
 
 - name: Check named service status
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: systemctl is-active named
     register: named_status
 
