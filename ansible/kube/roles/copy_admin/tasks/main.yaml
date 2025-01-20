@@ -1,16 +1,11 @@
 ---
-- name: Ensure /etc/kubernetes/admin.conf exists on source node
-  stat:
-    path: /etc/kubernetes/admin.conf
-  register: admin_conf_check
+- name: Install sshpass
+  ansible.builtin.yum:
+    name: sshpass
+    state: present
 
-- name: Fail if admin.conf is not present
-  fail:
-    msg: "The file /etc/kubernetes/admin.conf does not exist on the source node."
-  when: not admin_conf_check.stat.exists
-
-- name: Copy admin.conf to infra node
-  shell: >
-    scp /etc/kubernetes/admin.conf root@{{ infra_ip }}:/root/
+- name: Copy admin.conf to remote host
+  ansible.builtin.command:
+    cmd: sshpass -p "{{ remote_password }}" scp /etc/kubernetes/admin.conf root@{{ infra_ip }}:/root/
   args:
     warn: false

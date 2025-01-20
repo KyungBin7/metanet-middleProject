@@ -17,6 +17,8 @@ all:
       hosts:
         root:
           ansible_host: 10.0.0.166
+          ansible_user: root
+          ansible_ssh_private_key_file: ~/jkb.pem
     k8s-infra:
       hosts:
         root:
@@ -25,3 +27,8 @@ all:
       hosts:
         root:
           ansible_host: 10.0.0.2
+    k8s-compute2:
+      hosts:
+        root:
+          ansible_host: 10.0.0.??
+          
