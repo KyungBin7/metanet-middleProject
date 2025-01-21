@@ -1,0 +1,7 @@
+---
+- name: ingress and metallb install
+  hosts: all
+  become: true
+  roles:
+    - ingress_helm
+    - metallb_helm

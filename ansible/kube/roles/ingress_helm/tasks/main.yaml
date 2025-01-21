@@ -1,0 +1,32 @@
+---
+- name: Add the Ingress NGINX Helm repository
+  ansible.builtin.command:
+    cmd: "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx"
+  register: add_repo
+  changed_when: "'has been added' in add_repo.stdout or add_repo.stderr"
+
+- name: Install Ingress NGINX using Helm
+  ansible.builtin.command:
+    cmd: "helm install ingress-nginx ingress-nginx/ingress-nginx --namespace {{ namespace }} --create-namespace"
+  register: install_nginx
+  changed_when: "'STATUS: deployed' in install_nginx.stdout"
+
+- name: List installed Helm releases in the namespace
+  ansible.builtin.command:
+    cmd: "helm list --namespace {{ namespace }}"
+  register: helm_list
+  changed_when: false
+
+- name: Get pods in the Ingress NGINX namespace
+  ansible.builtin.command:
+    cmd: "kubectl get pods -n {{ namespace }}"
+  register: pod_status
+  changed_when: false
+
+- name: Debug Helm releases
+  ansible.builtin.debug:
+    msg: "{{ helm_list.stdout_lines }}"
+
+- name: Debug Pod statuses
+  ansible.builtin.debug:
+    msg: "{{ pod_status.stdout_lines }}"

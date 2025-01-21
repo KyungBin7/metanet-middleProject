@@ -10,3 +10,4 @@
     - install_helm
     - pvc_setup
     - dns_setup
+    - join
