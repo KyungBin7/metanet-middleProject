@@ -1,18 +1,18 @@
 all:
   children:
-   k8s-controller:
+    k8s-controller:
       hosts:
-        root:
+        root-controller:
           ansible_host: 192.168.10.10
     k8s-compute1:
       hosts:
-        root:
+        root-compute1:
           ansible_host: 192.168.10.20
     k8s-compute2:
       hosts:
-        root:
-          ansible_host: 192.168.10.20
+        root-compute2:
+          ansible_host: 192.168.10.30
     k8s-infra:
       hosts:
-        root:
+        root-infra:
           ansible_host: 192.168.10.100
