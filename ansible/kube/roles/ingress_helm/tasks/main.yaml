@@ -1,50 +1,18 @@
 ---
-- name: Add the Ingress NGINX Helm repository
+- name: Add the Traefik Helm repository
   ansible.builtin.command:
-    cmd: "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx"
-  register: add_repo
-  changed_when: "'has been added' in add_repo.stdout or add_repo.stderr"
+    cmd: "helm repo add traefik https://traefik.github.io/charts"
+  register: add_traefik_repo
+  changed_when: "'has been added' in add_traefik_repo.stdout or add_traefik_repo.stderr"
 
 - name: Update Helm repositories
   ansible.builtin.command:
     cmd: "helm repo update"
-  register: update_repo
-  changed_when: "'Update Complete' in update_repo.stdout or update_repo.stderr"
+  register: update_helm_repos
+  changed_when: "'Successfully' in update_helm_repos.stdout"
 
-- name: Install Ingress NGINX using Helm
+- name: Install Traefik using Helm
   ansible.builtin.command:
-    cmd: "helm install ingress-nginx ingress-nginx/ingress-nginx --namespace {{ namespace }} --create-namespace --wait --timeout 10m0s"
-  register: install_nginx
-  changed_when: "'STATUS: deployed' in install_nginx.stdout"
-
-- name: List installed Helm releases in the namespace
-  ansible.builtin.command:
-    cmd: "helm list --namespace {{ namespace }}"
-  register: helm_list
-  changed_when: false
-
-- name: Get pods in the Ingress NGINX namespace
-  ansible.builtin.command:
-    cmd: "kubectl get pods -n {{ namespace }}"
-  register: pod_status
-  changed_when: false
-
-- name: Debug Helm releases
-  ansible.builtin.debug:
-    msg: "{{ helm_list.stdout_lines }}"
-
-- name: Debug Pod statuses
-  ansible.builtin.debug:
-    msg: "{{ pod_status.stdout_lines }}"
-
-- name: Get failed pods logs if installation fails
-  ansible.builtin.command:
-    cmd: "kubectl logs -n {{ namespace }} $(kubectl get pods -n {{ namespace }} --field-selector=status.phase!=Running -o jsonpath='{.items[0].metadata.name}')"
-  when: install_nginx is failed
-  ignore_errors: true
-  register: failed_pod_logs
-
-- name: Debug failed pod logs
-  ansible.builtin.debug:
-    msg: "{{ failed_pod_logs.stdout }}"
-  when: install_nginx is failed
+    cmd: "helm install traefik traefik/traefik --namespace traefik --create-namespace"
+  register: install_traefik
+  changed_when: "'STATUS: deployed' in install_traefik.stdout"
