@@ -5,9 +5,15 @@
   register: add_repo
   changed_when: "'has been added' in add_repo.stdout or add_repo.stderr"
 
+- name: Update Helm repositories
+  ansible.builtin.command:
+    cmd: "helm repo update"
+  register: update_repo
+  changed_when: "'Update Complete' in update_repo.stdout or update_repo.stderr"
+
 - name: Install Ingress NGINX using Helm
   ansible.builtin.command:
-    cmd: "helm install ingress-nginx ingress-nginx/ingress-nginx --namespace {{ namespace }} --create-namespace"
+    cmd: "helm install ingress-nginx ingress-nginx/ingress-nginx --namespace {{ namespace }} --create-namespace --wait --timeout 10m0s"
   register: install_nginx
   changed_when: "'STATUS: deployed' in install_nginx.stdout"
 
@@ -30,3 +36,15 @@
 - name: Debug Pod statuses
   ansible.builtin.debug:
     msg: "{{ pod_status.stdout_lines }}"
+
+- name: Get failed pods logs if installation fails
+  ansible.builtin.command:
+    cmd: "kubectl logs -n {{ namespace }} $(kubectl get pods -n {{ namespace }} --field-selector=status.phase!=Running -o jsonpath='{.items[0].metadata.name}')"
+  when: install_nginx is failed
+  ignore_errors: true
+  register: failed_pod_logs
+
+- name: Debug failed pod logs
+  ansible.builtin.debug:
+    msg: "{{ failed_pod_logs.stdout }}"
+  when: install_nginx is failed
