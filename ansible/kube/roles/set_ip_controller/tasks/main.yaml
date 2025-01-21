@@ -8,6 +8,12 @@
   ansible.builtin.command:
     cmd: "nmcli connection modify '{{ network_connection_name }}' ipv4.method '{{ ipv4_method }}'"
 
-- name: Bring up the network connection
+- name: Restart NetworkManager service using nmcli
   ansible.builtin.command:
-    cmd: "nmcli connection up '{{ network_connection_name }}'"
+    cmd: nmcli networking off && nmcli networking on
+  become: yes
+  register: network_restart
+
+- name: Check if NetworkManager restarted successfully
+  debug:
+    var: network_restart
