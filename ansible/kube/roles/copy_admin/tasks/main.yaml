@@ -5,7 +5,5 @@
     state: present
 
 - name: Copy admin.conf to remote host
-  ansible.builtin.command:
+  ansible.builtin.shell:
     cmd: sshpass -p "{{ remote_password }}" scp /etc/kubernetes/admin.conf root@{{ infra_ip }}:/root/
-  args:
-    warn: false
