@@ -46,7 +46,7 @@
 - name: Check named service status
   ansible.builtin.shell:
     cmd: systemctl is-active named
-    register: named_status
+  register: named_status
 
 - name: Display reminder to update resolv.conf
   ansible.builtin.debug:
