@@ -3,16 +3,16 @@ all:
     k8s-controller:
       hosts:
         controller:
-          ansible_host: 10.0.0.194
+          ansible_host: 10.0.0.183
     k8s-compute1:
       hosts:
         compute1:
-          ansible_host: 10.0.0.2
+          ansible_host: 10.0.0.212
     k8s-compute2:
       hosts:
         compute2:
-          ansible_host: 10.0.0.112
+          ansible_host: 10.0.0.182
     k8s-infra:
       hosts:
         infra:
-          ansible_host: 10.0.0.98
+          ansible_host: 10.0.0.194
